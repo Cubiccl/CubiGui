@@ -14,6 +14,7 @@ public class CListUI extends BasicListUI
 	public Rectangle getCellBounds(@SuppressWarnings("rawtypes") JList list, int index1, int index2)
 	{
 		Rectangle r = super.getCellBounds(list, index1, index2);
+		if (r == null) return null;
 		Insets i = list.getInsets();
 		return new Rectangle(r.x - i.left, r.y, r.width + 2 * i.right, r.height);
 	}
