@@ -18,10 +18,10 @@ public class DisplayUtils
 {
 	/** Colors to use for this GUI. */
 	private static Color BACKGROUND = new Color(220, 220, 250), HOVERED = new Color(220, 250, 220), CLICKED = new Color(250, 220, 220), DISABLED = new Color(
-			200, 200, 200), BORDER = Color.GRAY;
+			200, 200, 200), BORDER = Color.GRAY, FOCUS = Color.BLUE;
 
 	/** Identifiers for the colors of this GUI. */
-	public static final int BACKGROUND_COLOR = 0, HOVERED_COLOR = 1, CLICKED_COLOR = 2, DISABLED_COLOR = 3, BORDER_COLOR = 4;
+	public static final int BACKGROUND_COLOR = 0, HOVERED_COLOR = 1, CLICKED_COLOR = 2, DISABLED_COLOR = 3, BORDER_COLOR = 4, BORDER_COLOR_FOCUS = 5;
 
 	/** Font to use for this GUI. */
 	public static final Font FONT = new Font("Dialog", Font.BOLD, 14);
@@ -43,6 +43,9 @@ public class DisplayUtils
 
 			case BORDER_COLOR:
 				return BORDER;
+
+			case BORDER_COLOR_FOCUS:
+				return FOCUS;
 
 			default:
 				return BACKGROUND;
@@ -122,7 +125,7 @@ public class DisplayUtils
 		panel.add(button, gbc);
 
 		dialog.getContentPane().add(panel);
-		dialog.setSize(600, 300);
+		dialog.setSize(800, 400);
 		dialog.setLocationRelativeTo(frame);
 		dialog.setVisible(true);
 	}

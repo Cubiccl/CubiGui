@@ -40,7 +40,6 @@ public class CComboboxUI extends BasicComboBoxUI
 	@Override
 	protected ComboPopup createPopup()
 	{
-		// TODO Auto-generated method stub
 		return new CPopup(this.comboBox);
 	}
 

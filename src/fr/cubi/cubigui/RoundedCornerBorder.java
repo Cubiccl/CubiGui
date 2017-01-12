@@ -1,5 +1,6 @@
 package fr.cubi.cubigui;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Graphics;
@@ -17,8 +18,10 @@ public class RoundedCornerBorder extends AbstractBorder
 {
 	private static final long serialVersionUID = 1L;
 
-	private boolean smallRadius;
+	/** Custom color. If null, default colors from DisplayUtils will be used. */
+	private Color color;
 	private boolean smallInsets;
+	private boolean smallRadius;
 
 	public RoundedCornerBorder()
 	{
@@ -28,11 +31,6 @@ public class RoundedCornerBorder extends AbstractBorder
 	public RoundedCornerBorder(boolean smallRadius)
 	{
 		this.smallRadius = smallRadius;
-	}
-
-	public void setSmallInsets(boolean smallInsets)
-	{
-		this.smallInsets = smallInsets;
 	}
 
 	@Override
@@ -54,6 +52,12 @@ public class RoundedCornerBorder extends AbstractBorder
 		return insets;
 	}
 
+	/** @return This custom Color of this Border. */
+	public Color getColor()
+	{
+		return this.color;
+	}
+
 	@Override
 	public void paintBorder(Component c, Graphics g, int x, int y, int width, int height)
 	{
@@ -61,6 +65,7 @@ public class RoundedCornerBorder extends AbstractBorder
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		int r = height - 1;
 		if (this.smallRadius) r = 5;
+
 		RoundRectangle2D round = new RoundRectangle2D.Float(x, y, width - 1, height - 1, r, r);
 		Container parent = c.getParent();
 		if (parent != null)
@@ -70,8 +75,25 @@ public class RoundedCornerBorder extends AbstractBorder
 			corner.subtract(new Area(round));
 			g2.fill(corner);
 		}
-		g2.setColor(DisplayUtils.getColor(DisplayUtils.BORDER_COLOR));
+
+		if (this.color != null) g2.setColor(this.color);
+		else if (c.hasFocus()) g2.setColor(DisplayUtils.getColor(DisplayUtils.BORDER_COLOR_FOCUS));
+		else g2.setColor(DisplayUtils.getColor(DisplayUtils.BORDER_COLOR));
+
 		g2.draw(round);
 		g2.dispose();
+	}
+
+	/** Applies a custom Color to this Border. If null, will apply default colors.
+	 * 
+	 * @param color - The new color to apply. */
+	public void setColor(Color color)
+	{
+		this.color = color;
+	}
+
+	public void setSmallInsets(boolean smallInsets)
+	{
+		this.smallInsets = smallInsets;
 	}
 }

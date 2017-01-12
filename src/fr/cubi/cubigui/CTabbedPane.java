@@ -9,7 +9,7 @@ public class CTabbedPane extends JTabbedPane
 
 	public CTabbedPane()
 	{
-		// this.setUI(new SynthTabbedPaneUI()); //TODO wtf pls
+		// this.setUI(new SynthTabbedPaneUI());
 	}
 
 }

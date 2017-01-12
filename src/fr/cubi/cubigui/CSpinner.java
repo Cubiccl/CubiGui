@@ -51,6 +51,8 @@ public class CSpinner extends CEntry implements ActionListener
 			public void keyReleased(KeyEvent e)
 			{
 				if (e.getKeyCode() == KeyEvent.VK_ENTER) verifyInput();
+				else if (e.getKeyCode() == KeyEvent.VK_UP) increment();
+				else if (e.getKeyCode() == KeyEvent.VK_DOWN) decrement();
 			}
 
 			@Override
@@ -78,15 +80,21 @@ public class CSpinner extends CEntry implements ActionListener
 		if (e.getSource() == this.buttonPlus)
 		{
 			this.verifyInput();
-			if (this.index < this.values.length - 1) ++this.index;
+			this.increment();
 		} else if (e.getSource() == this.buttonMinus)
 		{
 			this.verifyInput();
-			if (this.index > 0) --this.index;
+			this.decrement();
 		}
-		this.updateDisplay();
 		for (ActionListener listener : this.getActionListeners())
 			listener.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, ""));
+	}
+
+	/** Decrements this Spinner's current value. */
+	public void decrement()
+	{
+		if (this.index > 0) --this.index;
+		this.updateDisplay();
 	}
 
 	/** @return The value selected by the user. */
@@ -94,6 +102,13 @@ public class CSpinner extends CEntry implements ActionListener
 	{
 		if (this.values.length == 0) return 0;
 		return this.values[this.index];
+	}
+
+	/** Increments this Spinner's current value. */
+	public void increment()
+	{
+		if (this.index < this.values.length - 1) ++this.index;
+		this.updateDisplay();
 	}
 
 	/** Changes the values.

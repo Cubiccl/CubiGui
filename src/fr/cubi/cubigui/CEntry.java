@@ -15,15 +15,15 @@ public class CEntry extends CTextField
 	/** @param text - The name of the entry. If null, will not be visible. */
 	public CEntry(String text)
 	{
-		this(text, "");
+		this(text, "", "");
 	}
 
 	/** @param text - The name of the entry. If null, will not be visible.
-	 * @param defaultValue - The default value, input when created. */
-	public CEntry(String text, String defaultValue)
+	 * @param defaultValue - The default value, input when created.
+	 * @param suggestedText - The text to suggest if no text is input. */
+	public CEntry(String text, String defaultValue, String suggestedText)
 	{
-		super();
-		this.setText(defaultValue);
+		super(defaultValue, suggestedText);
 		this.label = new CLabel(text);
 
 		this.container = new CPanel();

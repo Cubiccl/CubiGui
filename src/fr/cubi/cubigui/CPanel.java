@@ -40,6 +40,8 @@ public class CPanel extends JPanel
 		this.gbc.gridwidth = 1;
 		this.gbc.gridheight = 1;
 		this.gbc.insets = new Insets(5, 5, 5, 5);
+		this.gbc.anchor = GridBagConstraints.NORTH;
+		this.gbc.fill = GridBagConstraints.HORIZONTAL;
 		return this.gbc;
 	}
 

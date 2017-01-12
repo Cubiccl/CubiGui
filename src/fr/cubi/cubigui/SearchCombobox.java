@@ -50,17 +50,17 @@ public class SearchCombobox extends CComboBox implements KeyListener
 	}
 
 	@Override
-	public void keyPressed(KeyEvent arg0)
+	public void keyPressed(KeyEvent e)
 	{}
 
 	@Override
-	public void keyReleased(KeyEvent arg0)
+	public void keyReleased(KeyEvent e)
 	{
-		this.search(arg0.getKeyCode());
+		this.search(e.getKeyCode());
 	}
 
 	@Override
-	public void keyTyped(KeyEvent arg0)
+	public void keyTyped(KeyEvent e)
 	{}
 
 	private void onSelection()

@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
 
 import fr.cubi.cubigui.CButton;
@@ -11,6 +12,7 @@ import fr.cubi.cubigui.CCheckBox;
 import fr.cubi.cubigui.CEntry;
 import fr.cubi.cubigui.CList;
 import fr.cubi.cubigui.CPanel;
+import fr.cubi.cubigui.CRadioButton;
 import fr.cubi.cubigui.CSpinner;
 import fr.cubi.cubigui.CTabbedPane;
 import fr.cubi.cubigui.CTable;
@@ -43,7 +45,7 @@ public class Test extends JFrame implements ActionListener
 		this.content.add(this.button = new CButton("Button"));
 		this.content.add(new CCheckBox("Checkbox"));
 		this.content.add(new CTextField("Textfield"));
-		this.content.add((new CEntry("Entry :")).container);
+		this.content.add((new CEntry("Entry :", "", "Suggestion...")).container);
 		this.content.add((new SearchCombobox("Search", "Combobox")).container);
 		this.content.add((new CSpinner("Spinner :", 1, 2, 3)).container);
 		this.content.add(new CTextArea("texttexttexttext texttexttexttext \ntexttexttexttexttexttexttexttext texttexttexttexttext"));
@@ -55,6 +57,13 @@ public class Test extends JFrame implements ActionListener
 		{ "de", "données et tout et tout" } }, new String[]
 		{ "Une énoooooooooooooorme", "Table" })).container);
 		this.content.add(tabpane);
+		ButtonGroup group = new ButtonGroup();
+		CRadioButton radio = new CRadioButton("Radio");
+		group.add(radio);
+		this.content.add(radio);
+		radio = new CRadioButton("Buttons");
+		group.add(radio);
+		this.content.add(radio);
 
 		this.setTitle("Kappa");
 		this.setVisible(true);
