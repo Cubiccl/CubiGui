@@ -55,6 +55,7 @@ public class CTextField extends JTextField implements FocusListener
 			@Override
 			protected boolean isStringValid(String string)
 			{
+				if (string.equals("") || string.equals("-")) return true;
 				try
 				{
 					Integer.parseInt(string);
@@ -76,6 +77,7 @@ public class CTextField extends JTextField implements FocusListener
 			@Override
 			protected boolean isStringValid(String string)
 			{
+				if (string.equals("") || string.equals("-")) return true;
 				try
 				{
 					Float.parseFloat(string);
