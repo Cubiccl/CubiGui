@@ -1,29 +1,38 @@
 package fr.cubi.cubigui.ui;
 
-import java.awt.Graphics;
-
 import javax.swing.AbstractButton;
 import javax.swing.JComponent;
-import javax.swing.plaf.basic.BasicCheckBoxUI;
+import javax.swing.JToggleButton;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.plaf.basic.BasicToggleButtonUI;
 
 import fr.cubi.cubigui.DisplayUtils;
 
 /** Custom UI for checkboxes. */
-public class CCheckBoxUI extends BasicCheckBoxUI
+public class CCheckBoxUI extends BasicToggleButtonUI
 {
 
 	@Override
-	public void update(Graphics g, JComponent c)
+	public void installUI(JComponent c)
 	{
-		if (!((AbstractButton) c).getModel().isEnabled()) c.setBackground(DisplayUtils.getColor(DisplayUtils.DISABLED_COLOR));
-		else if (((AbstractButton) c).getModel().isPressed()) c.setBackground(DisplayUtils.getColor(DisplayUtils.CLICKED_COLOR));
-		else if (((AbstractButton) c).getModel().isRollover()) c.setBackground(DisplayUtils.getColor(DisplayUtils.HOVERED_COLOR));
-		else c.setBackground(DisplayUtils.getColor(DisplayUtils.BACKGROUND_COLOR));
+		super.installUI(c);
+		c.setBackground(DisplayUtils.getColor(DisplayUtils.BACKGROUND_COLOR));
+		((AbstractButton) c).setIcon(new UncheckedIcon());
 
-		if (((AbstractButton) c).getModel().isSelected()) ((AbstractButton) c).setIcon(new CheckedIcon());
-		else ((AbstractButton) c).setIcon(new UncheckedIcon());
+		UIUpdater updater = new UIUpdater();
+		c.addMouseListener(updater);
+		c.addPropertyChangeListener("enabled", updater);
+		((JToggleButton) c).addChangeListener(new ChangeListener()
+		{
 
-		super.update(g, c);
+			@Override
+			public void stateChanged(ChangeEvent e)
+			{
+				if (((JToggleButton) e.getSource()).isSelected()) ((AbstractButton) c).setIcon(new CheckedIcon());
+				else ((AbstractButton) c).setIcon(new UncheckedIcon());
+			}
+		});
 	}
 
 }

@@ -7,19 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
 
-import fr.cubi.cubigui.CButton;
-import fr.cubi.cubigui.CCheckBox;
-import fr.cubi.cubigui.CEntry;
-import fr.cubi.cubigui.CList;
-import fr.cubi.cubigui.CPanel;
-import fr.cubi.cubigui.CRadioButton;
-import fr.cubi.cubigui.CSpinner;
-import fr.cubi.cubigui.CTabbedPane;
-import fr.cubi.cubigui.CTable;
-import fr.cubi.cubigui.CTextArea;
-import fr.cubi.cubigui.CTextField;
-import fr.cubi.cubigui.DisplayUtils;
-import fr.cubi.cubigui.SearchCombobox;
+import fr.cubi.cubigui.*;
 
 public class Test extends JFrame implements ActionListener
 {
@@ -31,6 +19,7 @@ public class Test extends JFrame implements ActionListener
 	}
 
 	private CButton button;
+	private CCheckBox checkbox;
 	private CPanel content;
 
 	public Test()
@@ -43,7 +32,7 @@ public class Test extends JFrame implements ActionListener
 		tabpane.add("Pane", new CPanel("Panel 2"));
 
 		this.content.add(this.button = new CButton("Button"));
-		this.content.add(new CCheckBox("Checkbox"));
+		this.content.add(this.checkbox = new CCheckBox("Checkbox"));
 		this.content.add(new CTextField("Textfield"));
 		this.content.add((new CEntry("Entry :", "", "Suggestion...")).container);
 		this.content.add((new SearchCombobox("Search", "Combobox")).container);
@@ -72,6 +61,15 @@ public class Test extends JFrame implements ActionListener
 		this.setLocationRelativeTo(null);
 
 		this.button.addActionListener(this);
+		this.checkbox.addActionListener(new ActionListener()
+		{
+
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				button.setEnabled(checkbox.isSelected());
+			}
+		});
 	}
 
 	@Override
