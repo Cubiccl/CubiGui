@@ -2,11 +2,7 @@ package fr.cubi.cubigui.ui;
 
 import java.awt.Component;
 
-import javax.swing.BorderFactory;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.ListCellRenderer;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 
 import fr.cubi.cubigui.DisplayUtils;
 

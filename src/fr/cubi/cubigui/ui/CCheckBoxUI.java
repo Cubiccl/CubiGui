@@ -21,6 +21,7 @@ public class CCheckBoxUI extends BasicToggleButtonUI
 		((AbstractButton) c).setIcon(new UncheckedIcon());
 
 		UIUpdater updater = new UIUpdater();
+		c.addAncestorListener(updater);
 		c.addMouseListener(updater);
 		c.addPropertyChangeListener("enabled", updater);
 		((JToggleButton) c).addChangeListener(new ChangeListener()

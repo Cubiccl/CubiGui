@@ -1,12 +1,7 @@
 package fr.cubi.cubigui;
 
 import java.awt.GridBagConstraints;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
 
 /** A Custom spinner. Use {@link CEntry#container} to add in a container. */
 public class CSpinner extends CEntry implements ActionListener
@@ -100,6 +95,7 @@ public class CSpinner extends CEntry implements ActionListener
 	/** @return The value selected by the user. */
 	public int getValue()
 	{
+		if (this.values == null) return 0;
 		if (this.values.length == 0) return 0;
 		return this.values[this.index];
 	}
@@ -109,6 +105,13 @@ public class CSpinner extends CEntry implements ActionListener
 	{
 		if (this.index < this.values.length - 1) ++this.index;
 		this.updateDisplay();
+	}
+
+	@Override
+	public void setText(String t)
+	{
+		super.setText(t);
+		this.verifyInput();
 	}
 
 	/** Changes the values.
@@ -123,39 +126,43 @@ public class CSpinner extends CEntry implements ActionListener
 
 	private void updateDisplay()
 	{
-		this.setText(Integer.toString(this.getValue()));
+		super.setText(Integer.toString(this.getValue()));
 	}
 
 	private void verifyInput()
 	{
-		int input = Integer.parseInt(this.getText());
-
-		for (int i = 0; i < this.values.length; ++i)
-			if (this.values[i] == input)
-			{
-				this.index = i;
-				this.updateDisplay();
-				return;
-			}
-
-		int below = 0, belowD = input - this.values[0], above = this.values.length - 1, aboveD = this.values[this.values.length - 1] - input;
-		for (int i = 0; i < this.values.length; ++i)
+		try
 		{
-			int value = this.values[i];
-			if (value < input)
+			int input = Integer.parseInt(this.getText());
+
+			for (int i = 0; i < this.values.length; ++i)
+				if (this.values[i] == input)
+				{
+					this.index = i;
+					this.updateDisplay();
+					return;
+				}
+
+			int below = 0, belowD = input - this.values[0], above = this.values.length - 1, aboveD = this.values[this.values.length - 1] - input;
+			for (int i = 0; i < this.values.length; ++i)
 			{
-				below = i;
-				belowD = input - value;
+				int value = this.values[i];
+				if (value < input)
+				{
+					below = i;
+					belowD = input - value;
+				}
+				if (value > input)
+				{
+					above = i;
+					aboveD = value - input;
+					break;
+				}
 			}
-			if (value > input)
-			{
-				above = i;
-				aboveD = value - input;
-				break;
-			}
-		}
-		if (aboveD > belowD) this.index = below;
-		else this.index = above;
+			if (aboveD > belowD) this.index = below;
+			else this.index = above;
+		} catch (Exception e)
+		{}
 		this.updateDisplay();
 	}
 

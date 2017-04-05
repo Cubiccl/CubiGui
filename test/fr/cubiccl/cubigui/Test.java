@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.SwingUtilities;
 
 import fr.cubi.cubigui.*;
 
@@ -15,7 +17,15 @@ public class Test extends JFrame implements ActionListener
 
 	public static void main(String[] args)
 	{
-		new Test();
+		SwingUtilities.invokeLater(new Runnable()
+		{
+
+			@Override
+			public void run()
+			{
+				new Test();
+			}
+		});
 	}
 
 	private CButton button;
@@ -77,5 +87,6 @@ public class Test extends JFrame implements ActionListener
 	{
 		DisplayUtils.setColor(DisplayUtils.BACKGROUND_COLOR, new Color((int) (Math.random() * 255), (int) (Math.random() * 255), (int) (Math.random() * 255)),
 				this);
+		if (DisplayUtils.showPopup(this, "lol", new JLabel("done!"), "OK", "Cancel")) System.out.println("ok");
 	}
 }

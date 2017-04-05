@@ -4,10 +4,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.Box;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 public class DisplayUtils
 {
@@ -98,17 +95,42 @@ public class DisplayUtils
 	 * @param component - The component to show. */
 	public static void showPopup(JFrame frame, String title, Component content)
 	{
-		JDialog dialog = new JDialog(frame, title, true);
+		showPopup(frame, title, content, "OK", null);
+	}
+
+	/** Displays a component in a popup window.
+	 * 
+	 * @param frame - The master frame.
+	 * @param title - The title of the popup window.
+	 * @param component - The component to show.
+	 * @return true if the user pressed OK, false if they pressed Cancel. */
+	public static boolean showPopup(JFrame frame, String title, Component content, String okText, String cancelText)
+	{
+		JDialog dialog = new JOptionPane(content).createDialog(frame, title);
 
 		JPanel panel = new JPanel(new GridBagLayout());
-		CButton button = new CButton("OK");
+		CButton button = new CButton(okText);
+		button.setName("");
 		button.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				((CButton) e.getSource()).setName("_PRESSED_");
+				dialog.dispose();
+			}
+		});
+		CButton buttonCancel = new CButton(cancelText);
+		buttonCancel.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
 			{
 				dialog.dispose();
 			}
 		});
+
+		JPanel p = new JPanel(new GridLayout(1, 2, 5, 0));
+		p.add(button);
+		if (cancelText != null) p.add(buttonCancel);
 
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.gridx = 0;
@@ -117,12 +139,14 @@ public class DisplayUtils
 		gbc.gridy++;
 		panel.add(Box.createRigidArea(new Dimension(100, 20)), gbc);
 		gbc.gridy++;
-		panel.add(button, gbc);
+		panel.add(p, gbc);
 
+		dialog.getContentPane().removeAll();
 		dialog.getContentPane().add(panel);
-		dialog.setSize(800, 400);
-		dialog.setLocationRelativeTo(frame);
+		if (frame != null) dialog.setIconImage(frame.getIconImage());
 		dialog.setVisible(true);
+
+		return button.getName().equals("_PRESSED_");
 	}
 
 	/** @param text

@@ -1,6 +1,7 @@
 package fr.cubi.cubigui;
 
 import javax.swing.JTabbedPane;
+import javax.swing.plaf.basic.BasicTabbedPaneUI;
 
 /** Custom Tabbed Pane. Not really but this is for consistency. */
 public class CTabbedPane extends JTabbedPane
@@ -9,7 +10,7 @@ public class CTabbedPane extends JTabbedPane
 
 	public CTabbedPane()
 	{
-		// this.setUI(new SynthTabbedPaneUI());
+		this.setUI(new BasicTabbedPaneUI());
 	}
 
 }
