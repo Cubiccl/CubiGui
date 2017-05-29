@@ -4,10 +4,7 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.ButtonGroup;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 
 import fr.cubi.cubigui.*;
 
@@ -80,6 +77,12 @@ public class Test extends JFrame implements ActionListener
 				button.setEnabled(checkbox.isSelected());
 			}
 		});
+
+		JMenuBar bar = new JMenuBar();
+		CMenu menu = new CMenu("menu");
+		menu.add(new CMenuItem("name"));
+		bar.add(menu);
+		this.setJMenuBar(bar);
 	}
 
 	@Override

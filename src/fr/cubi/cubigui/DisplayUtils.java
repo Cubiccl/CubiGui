@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
+import javax.swing.event.HyperlinkEvent;
+import javax.swing.event.HyperlinkListener;
 
 public class DisplayUtils
 {
@@ -85,7 +87,34 @@ public class DisplayUtils
 	 * @param message - The message to show. */
 	public static void showMessage(JFrame frame, String title, String message)
 	{
-		showPopup(frame, title, new CTextArea(message));
+		JEditorPane jep = new JEditorPane();
+		jep.setContentType("text/html");
+		jep.setText(message);
+
+		jep.setEditable(false);
+		jep.setOpaque(false);
+		jep.setFont(FONT.deriveFont(Font.PLAIN, 12));
+
+		jep.addHyperlinkListener(new HyperlinkListener()
+		{
+			@Override
+			public void hyperlinkUpdate(HyperlinkEvent hle)
+			{
+				if (HyperlinkEvent.EventType.ACTIVATED.equals(hle.getEventType()))
+				{
+					System.out.println(hle.getURL());
+					Desktop desktop = Desktop.getDesktop();
+					try
+					{
+						desktop.browse(hle.getURL().toURI());
+					} catch (Exception ex)
+					{
+						ex.printStackTrace();
+					}
+				}
+			}
+		});
+		showPopup(frame, title, jep);
 	}
 
 	/** Displays a component in a popup window.

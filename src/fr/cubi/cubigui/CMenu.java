@@ -2,16 +2,15 @@ package fr.cubi.cubigui;
 
 import java.awt.Font;
 
-import javax.swing.JMenuItem;
+import javax.swing.JMenu;
 
 import fr.cubi.cubigui.ui.CMenuButtonUI;
 
-/** A Custom MenuItem. */
-public class CMenuItem extends JMenuItem
+public class CMenu extends JMenu
 {
-	private static final long serialVersionUID = 7525223427463117L;
+	private static final long serialVersionUID = -4831778936672994814L;
 
-	public CMenuItem(String name)
+	public CMenu(String name)
 	{
 		super(name);
 		this.setFont(DisplayUtils.FONT.deriveFont(Font.BOLD, 12));
